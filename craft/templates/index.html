@@ -1,0 +1,111 @@
+{% extends "_homepage_layout" %}
+
+{% block content %}
+<div id="home_top_section" class="uk-section uk-section-muted uk-padding-remove">
+	<div class="uk-child-width-expand@s uk-grid-large uk-grid-match uk-margin-remove" uk-grid>
+		<div class="uk-width-1-3@s uk-padding">
+			<h3 class="uk-text-bold">REGISTER</h3>
+			<ul uk-switcher="animation: uk-animation-slide-left" uk-tab>
+			{% for event in entry.homeQuickRegister.status(null).limit(3) %}
+			    <li><a href="javascript:void(0)">{{ event.eventShortTitle }}</a></li>
+			{% endfor %}
+			</ul>
+			<ul class="uk-switcher uk-margin">
+			{% for event in entry.homeQuickRegister.status(null).limit(3) %}
+			    <li>
+			        <p>Click the button below to register for {{ event.title }}. Visit the <a href="/events/{{ event.slug }}" title="{{ event.eventShortTitle }} Event Page">event page</a> for more details.</p>
+			        <div class="uk-text-center">
+				    {% if  event.registrationUrl != '' %}
+				        <a href="{{ event.registrationUrl }}" title="Register for {{ event.eventShortTitle }}" class="uk-button uk-button-primary" target="_blank">Register</a>
+				    {%  else %} 
+				       	<button type="button" class="uk-button uk-button-primary" title="Register" onclick="register(document.forms['registrant_form_{{ event.id }}'], document.forms['event_form_{{ event.id }}']);">Register</button>
+				       	<form id="registrant_form_{{ event.id }}" method="post" accept-charset="utf-8" class="uk-hidden">
+							{{ getCsrfInput() }}
+				        	<input type="hidden" name="entryId" value="">
+						    <input type="hidden" name="action" value="guestEntries/saveEntry">
+						    <input type="hidden" name="sectionId" value="5">
+							<input name="title" type="hidden" value="">
+							<input name="slug" type="hidden" value="">
+							<input type="hidden" name="fields[registeredForEvents][]" value="{{ event.id }}">
+						</form>
+						<form id="event_form_{{ event.id }}" method="post" accept-charset="utf-8" class="uk-hidden">
+							{{ getCsrfInput() }}
+				        	<input type="hidden" name="entryId" value="{{ event.id }}">
+						    <input type="hidden" name="action" value="guestEntries/saveEntry">
+						    <input type="hidden" name="sectionId" value="4">
+							<input name="title" type="hidden" value="{{ event.title }}">
+							<input name="slug" type="hidden" value="{{ event.slug }}">
+							<input type="hidden" name="fields[eventRegistrants][]" value="">
+						</form>
+				    {% endif %}
+			        </div>
+			    </li>
+			{% endfor %}
+			</ul>
+			<hr class="uk-divider-icon">
+		</div>
+		<div class="uk-width-2-3@s uk-background uk-padding uk-position-relative">
+			<h3 class="uk-text-bold">ANNOUNCEMENTS</h3>
+			<ul id="announcement_switcher" class="uk-switcher">
+			{% set announcements = craft.entries.section('announcements').expiryDate('>= ' ~ now).order('postDate').find() %}
+				{% for row in announcements|batch(2) %}
+				<li>
+					<div class="uk-child-width-expand@s uk-grid uk-grid-large uk-grid-match" uk-grid>
+					{% for item in row %}
+				    	<div>
+				        	<div class="uk-card uk-card-default uk-card-body uk-position-relative">
+					        	{% for category in item.announcementCategory %}
+					        	<div class="uk-card-badge uk-label {{ category.slug }}-bg">{{ category.title }}</div>
+					        	{% endfor %}
+					        	<h3 class="uk-card-title uk-margin-remove-top">{{ item.title }}</h3>
+								{{ item.announcementBody }}
+				        	</div>
+				    	</div>
+				    {% endfor %}
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+			<div class="uk-width-1-1">
+				<ul id="announcement_nav" class="uk-dotnav uk-margin-medium-top uk-flex-center">
+				{% for announcement in announcements %}
+					{% if loop.index is odd %}
+					<li><a href=""></a></li>
+					{% endif %}
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="uk-section uk-padding-remove-vertical">
+	{% for image in entry.homeInspirationImage %}
+	<img src="{{ image.getUrl() }}" alt="Inspirational Image">
+	{% endfor %}
+</div>
+<div class="uk-section uk-section-muted uk-padding">
+	<div class="uk-container">
+		<h3 class="uk-heading-line uk-text-center uk-text-bold"><span>UPCOMING EVENTS</span></h3>
+		<div class="uk-child-width-expand@s uk-grid uk-grid-large uk-grid-match" uk-grid>
+	    	{% for entry in craft.entries.section('events').status('live, pending').order('postDate').limit(3) %}
+	    	<div>
+	        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+		        	<a href="/events/{{ entry.slug }}" title="{{ entry.title }}" class="uk-link-reset"><h3 class="uk-card-title uk-margin-remove-bottom"><span class="uk-margin-small-right" uk-icon="icon: calendar; ratio: 2" style="color: #666;"></span>{{ entry.title }}</h3></a>
+					<p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+					{% if entry.eventDescription != '' %}
+					<p>{{ entry.eventDescription }}</p>
+					{% endif %}
+	        	</div>
+	    	</div>
+	    	{% endfor %}
+		</div>
+		<hr class="uk-divider-icon">
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		UIkit.switcher('#announcement_nav', {connect:'#announcement_switcher', animation:'uk-animation-scale-up, uk-animation-fade'});
+	});
+</script>
+{% endblock %}

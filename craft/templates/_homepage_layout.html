@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% if title is defined %}{{ title }} | {% endif %}{{ siteName }}</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	<link rel="stylesheet" href="/css/uikit.min.css" />
+	<link rel="stylesheet" href="/css/styles.css" />
+	<script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/uikit.min.js"></script>
+    <script type="text/javascript" src="/js/uikit-icons.min.js"></script>
+    <script type="text/javascript" src="/js/form-validation.js"></script>
+    <script type="text/javascript" src="/js/js.cookie.js"></script>
+</head>
+<body>
+	<div class="uk-offcanvas-content">
+		<div id="user_nav" class="uk-text-right uk-text-small uk-text-uppercase uk-visible@s">
+		    <a href="#join_modal" class="uk-link-muted uk-margin-right" uk-toggle><span class="uk-margin-small-right" uk-icon="icon: user"></span>Join</a>
+		    <a href="javascript:void(0)" class="uk-link-muted" onclick="signIn();"><span class="uk-margin-small-right" uk-icon="icon: sign-in"></span>Sign In</a>
+		</div>
+		<header id="site_header" class="uk-position-relative">
+			<div id="homepage_hero" class="uk-cover-container">
+				{% for image in entry.homeImageLibrary.limit(1).order('RAND()') %}
+				<img src="{{ image.getUrl() }}" alt="{{ image.title }}" class="uk-animation-fade" uk-cover>
+				{% endfor %}
+				<div class="uk-position-small uk-position-bottom-center">
+					<a href="#home_top_section" class="uk-icon-button" uk-icon="icon: chevron-down; ratio: 2" uk-scroll></a>
+				</div>
+			</div>
+			<div class="uk-position-top">
+				<nav id="site_nav" class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+				    <div class="uk-navbar-left">
+					    <a id="site_logo" class="uk-logo" href="/"><img src="/images/site/psy-logo.svg" height="80" width="80" uk-svg></a>
+					    <div class="uk-navbar-left uk-margin-left uk-light uk-visible@m">Puyallup Stake Youth</div>
+				    </div>
+			        <div class="uk-navbar-right uk-light">
+				        <ul class="uk-navbar-nav uk-visible@s">
+					        <li><a href="/seminary" class="uk-button-text">Seminary</a></li>
+					        <li><a href="/youth-conference" class="uk-button-text">Conference</a></li>
+					        <li><a href="javascript:void(0)" class="uk-button-text">Camps</a>
+					        	<div class="uk-navbar-dropdown">
+				                    <ul class="uk-nav uk-navbar-dropdown-nav">
+				                        <li><a href="/camps/yw-camp">YW Camp</a></li>
+				                        <li class="uk-nav-divider"></li>
+				                        <li><a href="/camps/camp-helaman">Camp Helaman</a></li>
+				                        <li class="uk-nav-divider"></li>
+				                        <li><a href="/camps/trek">Trek</a></li>
+				                    </ul>
+				                </div>
+					        </li>
+				            <li><a href="/events" class="uk-button-text">Events</a></li>
+				            <li><a href="/contact" class="uk-button-text">Contact</a></li>
+				        </ul>
+				        <a class="uk-navbar-toggle uk-hidden@s" href="javascript:void(0)" onclick="showMobileMenu()">
+				            <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
+				        </a>
+			        </div>
+				</nav>
+			</div>
+		</header>
+		
+		{% block content %}
+			<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+			<p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+		{% endblock %}
+		
+		<footer id="site_footer" class="uk-background-secondary uk-padding uk-light">
+			<div class="uk-container">
+				<div uk-grid>
+				    <div class="uk-width-medium">
+					    <ul class="uk-nav uk-nav-default">
+					        <li class="uk-nav-header">Links</li>
+					        <li class="uk-nav-divider"></li>
+					        <li><a href="https://www.lds.org" target="_blank">LDS.org</a></li>
+					        <li><a href="https://www.lds.org/youth" target="_blank">Youth.LDS.org</a></li>
+					        <li><a href="https://www.mormon.org" target="_blank">Mormon.org</a></li>
+					        <li><a href="https://www.familysearch.org" target="_blank">FamilySearch.org</a></li>
+					    </ul>
+				    </div>
+				    <div class="uk-width-medium">
+					    <ul class="uk-nav uk-nav-default">
+					        <li class="uk-nav-header">Youth Members</li>
+					        <li class="uk-nav-divider"></li>
+					        <li><a href="#join_modal" uk-toggle>Join</a></li>
+							<li><a href="javascript:void(0)" onclick="signIn();">Sign In</a></li>
+					    </ul>
+				    </div>
+				    <div class="uk-width-medium">
+					    <ul class="uk-nav uk-nav-default">
+					        <li class="uk-nav-header">Support</li>
+					        <li class="uk-nav-divider"></li>
+					        <li><a href="/contact">Contact</a></li>
+					        <li><a href="/faq">FAQ</a></li>
+					    </ul>
+				    </div>
+				</div>
+			</div>
+		</footer>
+		
+		{# MODALS #}
+		<div id="join_modal" uk-modal>
+		    <div class="uk-modal-dialog">
+		        <button class="uk-modal-close-default" type="button" uk-close></button>
+		        <div class="uk-modal-header">
+		            <h2 class="uk-modal-title">Join Puyallup Stake Youth</h2>
+		        </div>
+		        <div class="uk-modal-body">
+			        <form id="join_form" method="post" accept-charset="utf-8">
+			        	{{ getCsrfInput() }}
+					    <input type="hidden" name="action" value="guestEntries/saveEntry">
+					    <input type="hidden" name="sectionId" value="5">
+						<input name="title" type="hidden" value="">
+						<input name="slug" type="hidden" value="">
+						<div class="uk-grid-small" uk-grid>
+							<div class="uk-width-1-2@s">
+								<input class="uk-input" type="text" name="fields[youthMemberFirstName]" placeholder="FIRST NAME" onkeyup="customUrlTitle(this.form);" data-label="First Name" required>
+						    </div>
+						    <div class="uk-width-1-2@s">
+							    <input class="uk-input" type="text" name="fields[youthMemberLastName]" placeholder="LAST NAME" onkeyup="customUrlTitle(this.form);" data-label="Last Name" required>
+						    </div>
+						    <div class="uk-width-1-2@s">
+						        <select class="uk-select" name="fields[youthMemberYouthGroup]" data-label="Youth Group" required>
+							        <option value="">Youth Group...</option>
+									{% for category in craft.categories.group('youthGroups').offset(1) %}
+									<option value="{{ category.id }}">{{ category.title }}</option>
+									{% endfor %}
+							    </select>
+						    </div>
+						    <div class="uk-width-1-2@s">
+						        <select class="uk-select" name="fields[youthMemberWard]" data-label="Ward" required>
+							        <option value="">WARD...</option>
+									{% for category in craft.categories.group('wards') %}
+									<option value="{{ category.id }}">{{ category.title }}</option>
+									{% endfor %}
+							    </select>
+						    </div>
+						    <div class="uk-width-1-2@s">
+						        <input class="uk-input" type="tel" name="fields[householdTelephone]" placeholder="HOUSEHOLD PHONE" onkeyup="customUrlTitle(this.form);" onchange="this.value = formatPhoneNumber(this.value);" data-label="Household Telephone" required>
+						    </div>
+						    <div class="uk-width-1-2@s">
+						        <input class="uk-input" type="text" name="fields[youthMemberPin]" placeholder="4 Digit PIN" data-label="PIN" maxlength="4" required>
+						    </div>
+						</div>
+			        </form>
+		        </div>
+		        <div class="uk-modal-footer uk-text-right">
+			        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+			        <button type="button" class="uk-button uk-button-primary" onclick="cYouthMember(document.forms['join_form']);">Join</button>
+			    </div>
+		    </div>
+		</div>
+		<div id="member_modal" uk-modal>
+		    <div class="uk-modal-dialog">
+		        <button class="uk-modal-close-default" type="button" uk-close></button>
+		        <div class="uk-modal-header">
+		            <h2 class="uk-modal-title">Update Your Information</h2>
+		        </div>
+		        <div class="uk-modal-body">
+			        <form id="youth_member_form" method="post" accept-charset="utf-8">
+			        	{{ getCsrfInput() }}
+			        	<input type="hidden" name="entryId" value="">
+					    <input type="hidden" name="action" value="guestEntries/saveEntry">
+					    <input type="hidden" name="sectionId" value="5">
+						<input name="title" type="hidden" value="">
+						<input name="slug" type="hidden" value="">
+						<div class="uk-grid-small" uk-grid>
+							<div class="uk-width-1-2@s">
+								<input class="uk-input" type="text" name="fields[youthMemberFirstName]" placeholder="FIRST NAME" onkeyup="customUrlTitle(this.form);" data-label="First Name" required>
+						    </div>
+						    <div class="uk-width-1-2@s">
+							    <input class="uk-input" type="text" name="fields[youthMemberLastName]" placeholder="LAST NAME" onkeyup="customUrlTitle(this.form);" data-label="Last Name" required>
+						    </div>
+						    <div class="uk-width-1-2@s">
+						        <select class="uk-select" name="fields[youthMemberYouthGroup]" data-label="Youth Group" required>
+							        <option value="">Youth Group...</option>
+									{% for category in craft.categories.group('youthGroups').offset(1) %}
+									<option value="{{ category.id }}">{{ category.title }}</option>
+									{% endfor %}
+							    </select>
+						    </div>
+						    <div class="uk-width-1-2@s">
+						        <select class="uk-select" name="fields[youthMemberWard]" data-label="Ward" required>
+							        <option value="">WARD...</option>
+									{% for category in craft.categories.group('wards') %}
+									<option value="{{ category.id }}">{{ category.title }}</option>
+									{% endfor %}
+							    </select>
+						    </div>
+						    <div class="uk-width-1-2@s">
+						        <input class="uk-input" type="tel" name="fields[householdTelephone]" placeholder="HOUSEHOLD PHONE" onkeyup="customUrlTitle(this.form);" onchange="this.value = formatPhoneNumber(this.value);" data-label="Household Telephone" required>
+						    </div>
+						    <div class="uk-width-1-2@s">
+						        <input class="uk-input" type="text" name="fields[youthMemberPin]" placeholder="4 Digit PIN" data-label="PIN" maxlength="4" required>
+						    </div>
+						</div>
+			        </form>
+		        </div>
+		        <div class="uk-modal-footer uk-text-right">
+			        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+			        <button type="button" class="uk-button uk-button-primary" onclick="uYouthMember(document.forms['youth_member_form']);">Update</button>
+			    </div>
+		    </div>
+		</div>
+		
+		{# Off Canvas Menus  #}
+		<div id="user_menu" uk-offcanvas="overlay: true; mode: push; flip: true;">
+		    <div class="uk-offcanvas-bar uk-dark">
+			    <button class="uk-offcanvas-close" type="button" uk-close></button>
+			    <ul class="uk-nav uk-nav-default">
+				    <li class="member-link"><a href="#member_modal" uk-toggle>Update Info</a></li>
+				    <li class="member-link"><a href="javascript:void(0)" onclick="signOut();">Sign Out</a></li>
+				    <li class="uk-nav-divider">
+			    </ul>
+		        <h3>Relevant to You</h3>
+		        <p>Below are some events relevant to you:</p>
+		        <div id="relevant_events" class="uk-text-center">
+		        	<div uk-spinner></div>
+		        </div>
+		    </div>
+		</div>
+		
+		<div id="mobile_menu" uk-offcanvas="overlay: true; mode: push; flip: true;">
+	    	<div class="uk-offcanvas-bar">
+		    	<button class="uk-offcanvas-close" type="button" uk-close></button>
+		    	<ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
+			    	<li class="uk-nav-header"><span class="uk-icon uk-margin-small-right" uk-icon="icon: users"></span>Youth Members</li>
+		            <li class="member-link"><a href="javascript:void(0)"></a></li>
+		            <li class="member-link"><a href="javascript:void(0)"></a></li>
+		            <li class="uk-nav-header">Site Menu</li>
+		            <li><a href="/seminary">Seminary</a></li>
+		            <li><a href="/youth-conference">Conference</a></li>
+		            <li class="uk-parent">
+		            	<a href="javascript:void(0)">Camps</a>
+		            	<ul class="uk-nav-sub">
+							<li><a href="/camps/yw-camp">YW Camp</a></li>
+							<li><a href="/camps/camp-helaman">Camp Helaman</a></li>
+							<li><a href="/camps/trek">Trek</a></li>
+		            	</ul>
+					</li>
+					<li><a href="/events">Events</a></li>
+					<li><a href="/contact">Contact</a></li>
+		        </ul>
+	    	</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/scripts.js"></script>
+</body>
+</html>

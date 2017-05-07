@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+
+/***********
+ ** FONTS **
+ ***********/
+ 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Roboto');
+
+
+/*********************
+ ** UIKIT OVERRIDES **
+ *********************/
+
+.uk-button-primary {
+    background: #147EA6;
+}
+
+.uk-button-primary:focus, .uk-button-primary:hover {
+    background-color: #116888;
+}
+
+.uk-offcanvas-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 20px 20px;
+    color: #666;
+    background: #fff;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+.uk-offcanvas-bar .uk-close {
+    color: rgba(0,0,0,0.5);
+}
+
+.uk-offcanvas-bar .uk-close:hover {
+	color: rgba(0,0,0,1);
+}
+
+.uk-offcanvas-bar h3 {
+	color: #222;
+}
+
+.uk-offcanvas-bar .uk-nav-default > li > a {
+    color: #999;
+}
+
+.uk-offcanvas-bar .uk-nav-default > li.uk-active > a {
+    color: #222;
+}
+
+.uk-offcanvas-bar .uk-nav-default > li > a:hover, .uk-offcanvas-bar .uk-nav-default > li > a:focus, .uk-offcanvas-bar .uk-nav-default > li > a:active {
+    color: #666;
+}
+
+.uk-offcanvas-bar .uk-nav-default > li.uk-active > a {
+    color: #222;
+}
+
+.uk-offcanvas-bar .uk-nav-default .uk-nav-divider {
+    border-top: 1px solid #e5e5e5;
+}
+
+.uk-offcanvas-bar a:hover, .uk-offcanvas-bar .uk-nav-default .uk-nav-sub a:hover, .uk-nav-default .uk-nav-sub a:focus {
+    color: #666;
+}
+
+.uk-offcanvas-bar a, .uk-offcanvas-bar .uk-nav-default .uk-nav-sub a {
+    color: #999;
+}
+
+.uk-offcanvas-bar .uk-nav-default .uk-nav-header {
+    color: #222;
+}
+
+.uk-offcanvas-bar .uk-nav-default.uk-nav-parent-icon > .uk-parent > a::after {
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    float: right;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23666%22%20stroke-width%3D%221.1%22%20points%3D%2210%201%204%207%2010%2013%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.uk-offcanvas-bar .uk-nav-default.uk-nav-parent-icon > .uk-parent.uk-open > a::after {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23666%22%20stroke-width%3D%221.1%22%20points%3D%221%204%207%2010%2013%204%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+}
+
+
+/*************
+ ** REDLINE **
+ *************/
+ 
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Roboto', sans-serif;
+}
+
+.conference-bg, .young-men-bg {
+	background-color: #147EA6;
+}
+
+.seminary-bg, .all-youth-bg {
+	background-color: #57BB97;
+}
+
+.young-women-bg {
+	background-color: #DFAECC;
+}
+
+
+/************
+ ** HEADER **
+ ************/
+#user_nav {
+	padding: 5px 15px;
+}
+
+#site_logo {
+	background-color: #FFFFFF;
+}
+
+#site_logo svg g {
+	fill: #147EA6 !important;
+}
+
+#site_nav.uk-navbar-transparent {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+#site_nav > .uk-navbar-right > .uk-navbar-nav > li.uk-active > a.uk-button-text:before {
+	right: 0;
+}
+
+#homepage_hero {
+	height: 85vh;
+}
+
+
+/************
+ ** FOOTER **
+ ************/
+ 
+ #site_footer{
+	 min-height: 300px;
+	 box-sizing: border-box;
+ }

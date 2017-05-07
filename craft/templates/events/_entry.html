@@ -1,0 +1,81 @@
+{% extends "_layout" %}
+{% set title = "Events" %}
+{% set entrySlug = craft.request.lastSegment %}
+{% set entry = craft.entries.section('events').slug(entrySlug).status('null').first() %}
+
+{% block content %}
+
+{% set eventOpenDay = entry.postDate|date("F d Y") %}
+{% set eventCloseDay = entry.expiryDate|date("F d Y") %}
+
+<div class="uk-section uk-padding">
+	<div class="uk-container ">
+		{% if entry.enableRegistration == 1 or entry.registrationUrl != '' %}
+		<div class="uk-grid-collapse" uk-grid>
+			<div class="uk-width-2-3@s uk-padding">
+		{% endif %}
+				<article class="uk-article">
+					{% for category in entry.eventCategory %}
+					<span class="uk-label uk-margin-small-bottom {{ category.slug }}-bg">{{ category.title }}</span>
+					{% endfor %}
+					<h1 class="uk-article-title uk-margin-small-top uk-margin-small-bottom">{{ entry.Title }}</h1>
+					<p class="uk-article-meta uk-margin-remove">
+						<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+						{% if eventOpenDay == eventCloseDay %}
+							{{ entry.postDate|date("F d, Y g:ia") }} - {{ entry.expiryDate|date("g:ia") }}
+						{% else %}
+							{{ entry.postDate|date("F d, Y") }} - {{ entry.expiryDate|date("F d, Y") }}
+						{% endif %}
+					</p>
+					<p class="uk-article-meta uk-margin-small-top">
+						<span class="uk-text-danger" uk-icon="icon: location"></span>
+						{{ entry.eventLocation }}
+					</p>
+					{% if entry.eventDescription != '' %}
+					<p class="uk-text-lead">{{ entry.eventDescription }}</p>
+					{% endif %}
+					{% if entry.eventDetails != '' %}
+					<h2 class="uk-heading-line"><span>DETAILS</span></h2>
+						{{ entry.eventDetails }}
+					{% endif %}
+				</article>
+		{% if entry.enableRegistration == 1 or entry.registrationUrl != '' %}
+			</div>
+			<div class="uk-width-1-3@s uk-background-muted uk-padding">
+				<div uk-sticky="offset: 30">
+					<h4>REGISTRATION</h4>
+					<p>Please read through the details of this event before registering. Click the button below to register for this event.</p>
+					{% if entry.registrationUrl != '' %}
+					<div class="uk-width-1-1 uk-text-center">
+						<a href="{{ entry.registrationUrl }}" class="uk-button uk-button-primary" title="Register" target="_blank">Register</a>
+					</div>
+					{%  else %}
+					<div class="uk-width-1-1 uk-text-center">
+						<button type="button" class="uk-button uk-button-primary" title="Register" onclick="register(document.forms['registrant_form_{{ entry.id }}'], document.forms['event_form_{{ entry.id }}']);">Register</button>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<form id="registrant_form_{{ entry.id }}" method="post" accept-charset="utf-8" class="uk-hidden">
+			{{ getCsrfInput() }}
+        	<input type="hidden" name="entryId" value="">
+		    <input type="hidden" name="action" value="guestEntries/saveEntry">
+		    <input type="hidden" name="sectionId" value="5">
+			<input name="title" type="hidden" value="">
+			<input name="slug" type="hidden" value="">
+			<input type="hidden" name="fields[registeredForEvents][]" value="{{ entry.id }}">
+		</form>
+		<form id="event_form_{{ entry.id }}" method="post" accept-charset="utf-8" class="uk-hidden">
+			{{ getCsrfInput() }}
+        	<input type="hidden" name="entryId" value="{{ entry.id }}">
+		    <input type="hidden" name="action" value="guestEntries/saveEntry">
+		    <input type="hidden" name="sectionId" value="4">
+			<input name="title" type="hidden" value="{{ entry.title }}">
+			<input name="slug" type="hidden" value="{{ entry.slug }}">
+			<input type="hidden" name="fields[eventRegistrants][]" value="">
+		</form>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,378 @@
+{% extends "_layout" %}
+{% set title = "Events" %}
+{% set thisYear = now.year %}
+{% set nextYear = now|date_modify('+1 year')|date('Y') %}
+
+{% block content %}
+<div class="uk-section uk-padding">
+	<div class="uk-container ">
+		<h1><strong>EVENTS</strong></h1>
+        <ul id="event_accordion">
+            <li>
+                <h3 class="uk-accordion-title"></span>January</h3>
+                <div class="uk-accordion-content">
+	                <hr>
+	                <div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+      				{% for entry in craft.entries.section('events').after(thisYear ~ '-01').before(thisYear ~ '-02').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}             
+	                </div>
+					<hr class="uk-divider-icon">
+                </div>
+            </li>
+            <li>
+                <h3 class="uk-accordion-title"></span>February</h3>
+                <div class="uk-accordion-content">
+	                <hr>
+                    <div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+                    {% for entry in craft.entries.section('events').after(thisYear ~ '-02').before(thisYear ~ '-03').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>
+                    <hr class="uk-divider-icon">
+                </div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>March</h3>
+            	<div class="uk-accordion-content">
+	            	<hr>
+	                <div class="uk-accordion-content uk-child-width-1-3@m uk-grid-match" uk-grid>
+                    {% for entry in craft.entries.section('events').after(thisYear ~ '-03').before(thisYear ~ '-04').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>April</h3>
+            	<div class="uk-accordion-content">
+            		<hr>
+            		<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+                    {% for entry in craft.entries.section('events').after(thisYear ~ '-04').before(thisYear ~ '-05').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>	
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>May</h3>
+            	<div class="uk-accordion-content">
+	            	<hr>
+	            	<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+                    {% for entry in craft.entries.section('events').after(thisYear ~ '-05').before(thisYear ~ '-06').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>	
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>June</h3>
+            	<div class="uk-accordion-content">
+            		<hr>
+            		<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+                    {% for entry in craft.entries.section('events').after(thisYear ~ '-06').before(thisYear ~ '-07').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>	
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>July</h3>
+            	<div class="uk-accordion-content">
+	            	<hr>
+					<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+                    {% for entry in craft.entries.section('events').after(thisYear ~ '-07').before(thisYear ~ '-08').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>
+	                <hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>August</h3>
+            	<div class="uk-accordion-content">
+            		<hr>
+            		<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+                    {% for entry in craft.entries.section('events').after(thisYear ~ '-08').before(thisYear ~ '-09').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>September</h3>
+            	<div class="uk-accordion-content">
+            		<hr>
+            		<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+                    {% for entry in craft.entries.section('events').after(thisYear ~ '-09').before(thisYear ~ '-10').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>	
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>October</h3>
+            	<div class="uk-accordion-content">
+            		<hr>
+            		<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+	            	{% for entry in craft.entries.section('events').after(thisYear ~ '-10').before(thisYear ~ '-11').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}	
+	                </div>	
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>November</h3>
+            	<div class="uk-accordion-content">
+            		<hr>
+            		<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+	            	{% for entry in craft.entries.section('events').after(thisYear ~ '-11').before(thisYear ~ '-12').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>	
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+            <li>
+            	<h3 class="uk-accordion-title"></span>December</h3>
+            	<div class="uk-accordion-content">
+            		<hr>
+            		<div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+	            	{% for entry in craft.entries.section('events').after(thisYear ~ '-12').before(nextYear ~ '-01').status('null').order('postDate') %}
+      					<div>
+				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
+					        	<h3 class="uk-card-title uk-margin-remove-bottom">{{ entry.title }}</h3>
+								<p class="uk-text-meta uk-margin-remove">
+									<span class="uk-text-primary" uk-icon="icon: calendar"></span>
+									<time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
+								</p>
+								<p class="uk-text-meta uk-margin-remove-top">
+									<span class="uk-text-danger" uk-icon="icon: location"></span>
+									{{ entry.eventLocation }}
+								</p>
+								{% if entry.eventDescription != '' %}
+								<p>{{ entry.eventDescription }}</p>
+								{% endif %}
+								<div class="uk-width-1-1 uk-text-center">
+									<a href="/events/{{ entry.slug }}" class="uk-button uk-button-primary">Details</a>
+								</div>
+				        	</div>
+				    	</div>
+      				{% endfor %}
+	                </div>	
+					<hr class="uk-divider-icon">
+            	</div>
+            </li>
+        </ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+	UIkit.accordion("#event_accordion", {active: (parseInt({{ now|date("n") }}) - 1)});
+</script>
+{% endblock %}

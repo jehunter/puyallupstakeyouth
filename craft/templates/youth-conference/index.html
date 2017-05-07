@@ -1,0 +1,41 @@
+{% extends "_layout" %}
+{% set title = "Youth Conference" %}
+
+{% block content %}
+<div class="uk-cover-container" style="height: 79vh;">
+    <img src="/images/page/2017-Youth-Theme-Banner.jpg" class="uk-animation-fade uk-cover" alt="Youth Theme Banner" uk-cover>
+    <div class="uk-position-small uk-position-bottom-center">
+		<a href="#featured" class="uk-icon-button" uk-icon="icon: chevron-down; ratio: 2" uk-scroll></a>
+	</div>
+</div>
+<div class="uk-width-1-1" uk-sticky>
+	<div class="uk-container uk-text-center uk-text-center">
+		<nav class="uk-navbar-container" uk-navbar>
+		    <div class="uk-navbar-left">
+		        <ul class="uk-navbar-nav" uk-scrollspy-nav="closest: li; scroll: true; offset: 100">
+		            <li><a href="#featured" uk-scroll="offset: 25">Featured</a></li>
+		            <li><a href="#schedule" uk-scroll="offset: 25">Schedule</a></li>
+		        </ul>
+		    </div>
+		    <div class="uk-navbar-right">
+	                <a href="https://docs.google.com/forms/d/e/1FAIpQLScByelnkc1ieME99oXajuWvw7mN94LGst_FvZ6xGx3Iwbj47Q/viewform?c=0&w=1&usp=mail_form_link" title="Register" target="_blank" class="uk-button uk-button-primary uk-button-large uk-margin-small-right">Register</a>
+	        </div>
+		</nav>	
+	</div>
+</div>
+<div id="featured" class="uk-section">
+	<div class="uk-container">
+		<h3 class="uk-heading-line uk-text-center"><span>Featured Guests</span></h3>
+        <h2 class="uk-margin-remove-top">COMING SOON</h2>
+        <hr class="uk-divider-icon">
+        <div id="schedule" class="uk-margin-medium-top">
+	        <div class="uk-panel uk-background-muted uk-padding">
+		        <h3>Schedule</h3>
+				<h5>Coming Soon...</h5>
+	        </div>
+	    </div>
+	    <h3 class="uk-heading-line uk-text-center"><span>Gallery</span></h3>
+	    <h2 class="uk-margin-remove-top">COMING SOON</h2>
+	</div>
+</div>
+{% endblock %}
