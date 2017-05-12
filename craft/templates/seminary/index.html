@@ -2,5 +2,63 @@
 {% set title = "Seminary" %}
 
 {% block content %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
+<div class="uk-cover-container" style="height: 79vh;">
+	{% for image in entry.seminaryPageImage %}
+    <img src="{{ image.getUrl() }}" class="uk-animation-fade uk-cover" alt="{{ image.title }}" uk-cover>
+	{% endfor %}
+    <div class="uk-position-small uk-position-bottom-center">
+		<a href="#page_content" class="uk-icon-button" uk-icon="icon: chevron-down; ratio: 2" uk-scroll></a>
+	</div>
+</div>
+<div id="page_content" class="uk-section seminary-bg">
+	<div class="uk-container uk-margin-large-bottom">
+		<div class="uk-grid-collapse" uk-grid>
+			<div class="uk-width-1-3@m uk-background-muted uk-padding">
+				<h3>Important Dates</h3>
+				<div class="uk-height-large uk-overflow-auto">
+					{% for item in entry.seminaryImportantDates %}
+					<div class="uk-card uk-card-small uk-card-default uk-card-body uk-margin">
+						<h6 class="uk-margin-remove-bottom"><span class="uk-margin-small-right" uk-icon="icon: calendar; ratio: 2" style="color: #666;"></span>{{ item.date|date("F d, Y") }}</h6>
+						<p>{{ item.description }}</p>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="uk-width-2-3@m uk-padding uk-background-default">
+				<h3>Resources</h3>
+				<div class="uk-height-large ">
+					<ul class="uk-list uk-list-large uk-list-divider">
+						<li><a class="uk-link-muted" href="https://ident.lds.org/sso/SSORedirect/metaAlias/lds/idp?SAMLRequest=fZJLT8MwEIT%2FSuR74qQ0LbXaSoUKUalA1BQOXJDrbKglP4LXKfTf46Q8D3Bdzex%2BM9opcq0atmj93mzgpQX00Wo5I0%2FZaCDSXX4eD3Oex8N6sIt5JSCu80xMJunojE%2FOSfQADqU1MzJIUhKtEFtYGfTc%2BDBKs3Gc5nE62WZDlo9ZlieD0fCRRMtwRRrue%2Bfe%2BwYZpbIC4xNVYWLdM0W0tCzvNlBJB8JTDZ4vlORIgyJoGxJdWSegB5%2BRmiuEDqDgiPIAX5PCWW%2BFVRfSVNI8z0jrDLMcJTLDNSDzgpWLmzULAdjuJEJ2vd0WcXFXbkm0QATXkV5ag60GV4I7SAH3m%2FU3uz4i6JDIHb8CdGB0AwICDYnetDLI%2Bq7%2FR2g%2BeMl82qlZX6n74f%2Ffzj9pyVwfyw%2BmKf2x6rS3YbfBu1oWVklx7KrU3P%2B9OkuyfiKruO6lrDXYgJC1hCp0pJR9vXTAfSjeuzYEpvPT1d%2BvNX8H&RelayState=http%3A%2F%2Fmyseminary.lds.org%2F" title="mySeminary App" target="_blank">mySeminary App</a></li>
+						<li><a class="uk-link-muted" href="https://www.lds.org/si/broadcasts?lang=eng&site=seminary" title="Seminary Broadcasts" target="_blank">Broadcasts</a></li>
+						<li><a class="uk-link-muted" href="https://www.lds.org/si/seminary/manuals?lang=eng" title="Seminary Manuals" target="_blank">Manuals</a></li>
+						<li><a class="uk-link-muted" href="https://www.lds.org/si/seminary/news/1?lang=eng" title="Seminary News" target="_blank">News</a></li>
+						<li><a class="uk-link-muted" href="https://www.lds.org/si/seminary/about?lang=eng" title="About Seminary" target="_blank">About</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="uk-container">
+		<div uk-grid>
+			<div class="uk-width-1-2@s">
+				<div class="fb-page" data-href="https://www.facebook.com/LDSSeminary" data-tabs="timeline" data-width="500" data-height="450" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false"><blockquote cite="https://www.facebook.com/LDSSeminary" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/LDSSeminary">LDS Seminary</a></blockquote></div>
+			</div>
+			<div class="uk-width-1-2@s">
+				<div class="uk-height-large uk-overflow-auto">
+					<a class="twitter-timeline" href="https://twitter.com/LDSSeminary">Tweets by LDSSeminary</a>
+					<script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
