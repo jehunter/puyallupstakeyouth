@@ -10,10 +10,10 @@ function relevantEvents(){
 		
 		switch(Cookies.getJSON('youthMember').youth_group){
 			case 'Young Men':
-				youthGroupId = 23;
+				youthGroupId = 24;
 				break;
 			case 'Young Women':
-				youthGroupId = 24;
+				youthGroupId = 23;
 				break;
 			default:
 				youthGroupId = 22;

@@ -1,0 +1,83 @@
+{% extends "_layout" %}
+
+{% set promJs %}
+	function checkPassCode(event){
+		event.preventDefault();
+			
+		if(document.forms['pass_code_form']['passcode'].value != 'LDSYouth'){
+			$(document.forms['pass_code_form']['passcode']).addClass('uk-form-danger uk-animation-shake');
+			setTimeout(function(){$(document.forms['pass_code_form']['passcode']).removeClass('uk-animation-shake');}, 501);
+		} else{
+			$("#pass_code_modal").hide();
+		}
+		return false;
+	}
+
+	$(document).ready(function(){
+		var passCodeModal = $("#pass_code_modal").clone();
+		var bodyConfig = { attributes: true, childList: true, characterData: true };
+		var passCodeConfig = { attributes: true, childList: true, characterData: true, attributeOldValue: true };
+		
+		UIkit.modal($("#pass_code_modal"), {escClose:false, bgClose:false}).show();
+		
+		var bodyObserver = new MutationObserver(function(mutations){
+			mutations.forEach(function(mutation) {
+				//console.log(mutation);
+				if(mutation.type == "childList" && mutation.removedNodes.length > 0){
+					for(var x = 0 in mutation.removedNodes){
+						if(mutation.removedNodes[x].id == "pass_code_modal"){
+							$("body").append(passCodeModal);
+							UIkit.modal($("#pass_code_modal"), {escClose:false, bgClose:false}).show();
+						}
+					}
+				}
+			});    
+		});
+		
+		var passCodeObserver = new MutationObserver(function(mutations){
+			mutations.forEach(function(mutation) {
+				console.log(mutation);
+				if(mutation.type == "attributes" && mutation.attributeName == "id"){
+					if(mutation.target.id != "pass_code_modal"){
+						mutation.target.id = "pass_code_modal";
+					}
+				}
+			});    
+		});
+		 
+		bodyObserver.observe(document.body, bodyConfig);
+		passCodeObserver.observe(document.getElementById('pass_code_modal'), passCodeConfig);
+	});
+{% endset %}
+
+{% includeJs promJs %}
+
+{% block content %}
+<div class="uk-section">
+	<div class="uk-container">
+		<h2>Mormon Prom 2017</h2>
+		<div class="uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid>
+		{% for image in craft.assets.folderId(5) %}
+	    	<div>
+		    	<a href="{{ image.getUrl() }}" title="{{ image.title }}" download>
+			    	<img src="{{ image.getUrl('thumb') }}" alt="{{ image.title }}">
+			    </a>
+	    	</div>
+		{% endfor %}
+		</div>
+	</div>
+</div>
+
+<div id="pass_code_modal">
+	<div class="uk-modal-dialog uk-modal-body uk-width-medium">
+		<form id="pass_code_form" onsubmit="checkPassCode(event);">
+		    <div class="uk-margin">
+		        <div class="uk-inline">
+		            <a class="uk-form-icon uk-form-icon-flip" href="javascript:void(0)" uk-icon="icon: arrow-right" onclick="checkPassCode(event);"></a>
+		            <input class="uk-input" type="text" name="passcode" placeholder="Passcode">
+		        </div>
+		    </div>
+		</form>
+	</div>
+</div>
+{% endblock %}
