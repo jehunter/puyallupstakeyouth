@@ -8,7 +8,8 @@
 			$(document.forms['pass_code_form']['passcode']).addClass('uk-form-danger uk-animation-shake');
 			setTimeout(function(){$(document.forms['pass_code_form']['passcode']).removeClass('uk-animation-shake');}, 501);
 		} else{
-			$("#pass_code_modal").hide();
+			UIkit.modal("#pass_code_modal").hide();
+			Cookies.set('prom', true);
 		}
 		return false;
 	}
@@ -18,7 +19,11 @@
 		var bodyConfig = { attributes: true, childList: true, characterData: true };
 		var passCodeConfig = { attributes: true, childList: true, characterData: true, attributeOldValue: true };
 		
-		UIkit.modal($("#pass_code_modal"), {escClose:false, bgClose:false}).show();
+		UIkit.modal($("#pass_code_modal"), {escClose:false, bgClose:false});
+		
+		if(!Cookies.get('prom')){
+			UIkit.modal("#pass_code_modal").show();
+		}
 		
 		var bodyObserver = new MutationObserver(function(mutations){
 			mutations.forEach(function(mutation) {
@@ -36,7 +41,7 @@
 		
 		var passCodeObserver = new MutationObserver(function(mutations){
 			mutations.forEach(function(mutation) {
-				console.log(mutation);
+				//console.log(mutation);
 				if(mutation.type == "attributes" && mutation.attributeName == "id"){
 					if(mutation.target.id != "pass_code_modal"){
 						mutation.target.id = "pass_code_modal";
@@ -56,14 +61,8 @@
 <div class="uk-section">
 	<div class="uk-container">
 		<h2>Mormon Prom 2017</h2>
-		<div class="uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid>
-		{% for image in craft.assets.folderId(5) %}
-	    	<div>
-		    	<a href="{{ image.getUrl() }}" title="{{ image.title }}" download>
-			    	<img src="{{ image.getUrl('thumb') }}" alt="{{ image.title }}">
-			    </a>
-	    	</div>
-		{% endfor %}
+		<div id="image_grid" class="uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid>
+		
 		</div>
 	</div>
 </div>
@@ -80,4 +79,15 @@
 		</form>
 	</div>
 </div>
+
+<script type="text/javascript">
+	var assets = [];
+	{% for image in craft.assets.folderId(5).limit(null) %}
+		assets.push({thumb:"{{ image.getUrl('thumbPortrait') }}", full_size:"{{ image.getUrl() }}", title:"{{ image.title }}"});
+	{% endfor %}
+
+	for(var x = 0 in assets){
+		$("#image_grid").append('<div><a href="' + assets[x].full_size + '" title="' + assets[x].title + '" download><img src="' + assets[x].thumb + '" alt="' + assets[x].title + '"></a></div>');
+	}
+</script>
 {% endblock %}
