@@ -1,17 +1,17 @@
 [
     {
         "name": "symfony/event-dispatcher",
-        "version": "v2.8.19",
-        "version_normalized": "2.8.19.0",
+        "version": "v2.8.20",
+        "version_normalized": "2.8.20.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/event-dispatcher.git",
-            "reference": "88b65f0ac25355090e524aba4ceb066025df8bd2"
+            "reference": "7fc8e2b4118ff316550596357325dfd92a51f531"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/88b65f0ac25355090e524aba4ceb066025df8bd2",
-            "reference": "88b65f0ac25355090e524aba4ceb066025df8bd2",
+            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/7fc8e2b4118ff316550596357325dfd92a51f531",
+            "reference": "7fc8e2b4118ff316550596357325dfd92a51f531",
             "shasum": ""
         },
         "require": {
@@ -28,7 +28,7 @@
             "symfony/dependency-injection": "",
             "symfony/http-kernel": ""
         },
-        "time": "2017-04-03 20:37:06",
+        "time": "2017-04-26 16:56:54",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -513,18 +513,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/pixelandtonic/yii.git",
-            "reference": "6a58fda0256743ce7c1645c41d7889fbb3d49ab6"
+            "reference": "481fed5d49c927cb246815335e92fdcf70c0e0a3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pixelandtonic/yii/zipball/6a58fda0256743ce7c1645c41d7889fbb3d49ab6",
-            "reference": "6a58fda0256743ce7c1645c41d7889fbb3d49ab6",
+            "url": "https://api.github.com/repos/pixelandtonic/yii/zipball/481fed5d49c927cb246815335e92fdcf70c0e0a3",
+            "reference": "481fed5d49c927cb246815335e92fdcf70c0e0a3",
             "shasum": ""
         },
         "require": {
             "php": ">=5.1.0"
         },
-        "time": "2017-04-21 00:59:22",
+        "time": "2017-05-10 17:20:13",
         "bin": [
             "framework/yiic"
         ],
