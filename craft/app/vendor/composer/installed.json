@@ -1,24 +1,24 @@
 [
     {
         "name": "enshrined/svg-sanitize",
-        "version": "0.5.3",
-        "version_normalized": "0.5.3.0",
+        "version": "0.5.3.1",
+        "version_normalized": "0.5.3.1",
         "source": {
             "type": "git",
-            "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-            "reference": "1907fff05f8931e1bc0c8ba27e936b46d51e29b0"
+            "url": "https://github.com/pixelandtonic/svg-sanitizer.git",
+            "reference": "a392da2ace76ecb27263cb09e2163449514bcf81"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/1907fff05f8931e1bc0c8ba27e936b46d51e29b0",
-            "reference": "1907fff05f8931e1bc0c8ba27e936b46d51e29b0",
+            "url": "https://api.github.com/repos/pixelandtonic/svg-sanitizer/zipball/a392da2ace76ecb27263cb09e2163449514bcf81",
+            "reference": "a392da2ace76ecb27263cb09e2163449514bcf81",
             "shasum": ""
         },
         "require-dev": {
             "codeclimate/php-test-reporter": "^0.1.2",
             "phpunit/phpunit": "^4.7"
         },
-        "time": "2017-02-26 17:38:09",
+        "time": "2017-06-09 21:45:33",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -26,7 +26,6 @@
                 "enshrined\\svgSanitize\\": "src"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "GPL-2.0+"
         ],
@@ -36,21 +35,24 @@
                 "email": "daryll@enshrined.co.uk"
             }
         ],
-        "description": "An SVG sanitizer for PHP"
+        "description": "An SVG sanitizer for PHP",
+        "support": {
+            "source": "https://github.com/pixelandtonic/svg-sanitizer/tree/0.5.3.1"
+        }
     },
     {
         "name": "symfony/event-dispatcher",
-        "version": "v2.8.21",
-        "version_normalized": "2.8.21.0",
+        "version": "v2.8.22",
+        "version_normalized": "2.8.22.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/event-dispatcher.git",
-            "reference": "7fc8e2b4118ff316550596357325dfd92a51f531"
+            "reference": "1377400fd641d7d1935981546aaef780ecd5bf6d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/7fc8e2b4118ff316550596357325dfd92a51f531",
-            "reference": "7fc8e2b4118ff316550596357325dfd92a51f531",
+            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/1377400fd641d7d1935981546aaef780ecd5bf6d",
+            "reference": "1377400fd641d7d1935981546aaef780ecd5bf6d",
             "shasum": ""
         },
         "require": {
@@ -67,7 +69,7 @@
             "symfony/dependency-injection": "",
             "symfony/http-kernel": ""
         },
-        "time": "2017-04-26 16:56:54",
+        "time": "2017-06-02 07:47:27",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -548,28 +550,28 @@
     },
     {
         "name": "yiisoft/yii",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.1.19.1",
+        "version_normalized": "1.1.19.1",
         "source": {
             "type": "git",
             "url": "https://github.com/pixelandtonic/yii.git",
-            "reference": "481fed5d49c927cb246815335e92fdcf70c0e0a3"
+            "reference": "c7a034eba65dc7b6768f0c5aefaeb2693cef787a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pixelandtonic/yii/zipball/481fed5d49c927cb246815335e92fdcf70c0e0a3",
-            "reference": "481fed5d49c927cb246815335e92fdcf70c0e0a3",
+            "url": "https://api.github.com/repos/pixelandtonic/yii/zipball/c7a034eba65dc7b6768f0c5aefaeb2693cef787a",
+            "reference": "c7a034eba65dc7b6768f0c5aefaeb2693cef787a",
             "shasum": ""
         },
         "require": {
             "php": ">=5.1.0"
         },
-        "time": "2017-05-10 17:20:13",
+        "time": "2017-06-09 20:46:36",
         "bin": [
             "framework/yiic"
         ],
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "classmap": [
                 "framework/YiiBase.php",
