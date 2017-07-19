@@ -40,8 +40,8 @@
     },
     {
         "name": "symfony/event-dispatcher",
-        "version": "v2.8.22",
-        "version_normalized": "2.8.22.0",
+        "version": "v2.8.24",
+        "version_normalized": "2.8.24.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/event-dispatcher.git",
@@ -548,23 +548,23 @@
     },
     {
         "name": "yiisoft/yii",
-        "version": "1.1.19.2",
-        "version_normalized": "1.1.19.2",
+        "version": "1.1.19.3",
+        "version_normalized": "1.1.19.3",
         "source": {
             "type": "git",
             "url": "https://github.com/pixelandtonic/yii.git",
-            "reference": "2bbfc6a84a03fded2cb09daa3b9c013ecb88e485"
+            "reference": "6bfb5bf7b691fb418ffee90e262c2a9ff7d9294d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pixelandtonic/yii/zipball/2bbfc6a84a03fded2cb09daa3b9c013ecb88e485",
-            "reference": "2bbfc6a84a03fded2cb09daa3b9c013ecb88e485",
+            "url": "https://api.github.com/repos/pixelandtonic/yii/zipball/6bfb5bf7b691fb418ffee90e262c2a9ff7d9294d",
+            "reference": "6bfb5bf7b691fb418ffee90e262c2a9ff7d9294d",
             "shasum": ""
         },
         "require": {
             "php": ">=5.1.0"
         },
-        "time": "2017-06-15 17:40:26",
+        "time": "2017-07-13 18:05:47",
         "bin": [
             "framework/yiic"
         ],
