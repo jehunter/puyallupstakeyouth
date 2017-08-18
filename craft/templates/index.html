@@ -79,7 +79,7 @@
 	</div>
 </div>
 <div class="uk-section uk-padding-remove-vertical">
-	{% for image in entry.homeInspirationImage %}
+	{% for image in craft.assets.folderId(7).kind('image').limit(1).order('RAND()') %}
 	<img src="{{ image.getUrl() }}" alt="Inspirational Image">
 	{% endfor %}
 </div>
