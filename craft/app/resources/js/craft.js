@@ -1,4 +1,4 @@
-/*! Craft  - 2017-07-19 */
+/*! Craft  - 2017-09-29 */
 (function($){
 
 // Set all the standard Craft.* stuff
@@ -2067,6 +2067,11 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 
 		if (this.getSelectedSortAttribute() == 'structure')
 		{
+			if (typeof this.instanceState.collapsedElementIds === 'undefined')
+			{
+				this.instanceState.collapsedElementIds = [];
+			}
+
 			params.collapsedElementIds = this.instanceState.collapsedElementIds;
 		}
 
@@ -6837,14 +6842,13 @@ Craft.AuthManager = Garnish.Base.extend(
 			{
 				if (textStatus == 'success')
 				{
-					this.updateAuthTimeout(jqXHR.responseJSON.timeout);
-
-					this.submitLoginIfLoggedOut = false;
-
 					if (typeof jqXHR.responseJSON.csrfTokenValue !== 'undefined' && typeof Craft.csrfTokenValue !== 'undefined')
 					{
 						Craft.csrfTokenValue = jqXHR.responseJSON.csrfTokenValue;
 					}
+
+					this.updateAuthTimeout(jqXHR.responseJSON.timeout);
+					this.submitLoginIfLoggedOut = false;
 				}
 				else
 				{
@@ -16260,6 +16264,12 @@ Craft.TagSelectInput = Craft.BaseElementSelectInput.extend(
 
 		this.addListener(this.$addTagInput, 'textchange', $.proxy(function()
 		{
+			var val = this.$addTagInput.val();
+			if (val !== (val = val.trim()))
+			{
+				this.$addTagInput.val(val).data('garnish-textchange-value', val);
+			}
+
 			if (this.searchTimeout)
 			{
 				clearTimeout(this.searchTimeout);
