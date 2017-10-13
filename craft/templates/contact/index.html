@@ -203,13 +203,19 @@
     <div uk-grid>
         <div class="uk-width-2-3@m">
             <div class="uk-panel uk-panel-header">
-                <!--<h3 class="uk-panel-title">For website related items:</h3>
-                <form id="contact_form" action="" method="post" onsubmit="contact(this); return false;">
+                <h3 class="uk-panel-title">For website related items or feedback:</h3>
+                <form id="contact_form" action="" accept-charset="UTF-8" method="post" onsubmit="contact(this); return false;">
+	                {{ getCsrfInput() }}
+				    <input type="hidden" name="action" value="contactForm/sendMessage">
+				    <input type="hidden" name="redirect" value="contact/thanks">
                     <div class="uk-margin">
-					   <input class="uk-input" type="text" name="name" placeholder="Your Name" required>
+					   <input class="uk-input" type="text" name="fromName" placeholder="Your Name" required>
         			</div>
                     <div class="uk-margin">
-					   <input class="uk-input" type="email" name="email" placeholder="Your Email" required>
+					   <input class="uk-input" type="email" name="fromEmail" placeholder="Your Email" required>
+        			</div>
+        			<div class="uk-margin">
+					   <input class="uk-hidden" type="email" name="confirmEmail" value="">
         			</div>
         			<div class="uk-margin">
 					   <input class="uk-input" type="text" name="subject" placeholder="Subject" required>
@@ -222,7 +228,7 @@
                             <button type="submit" class="uk-button uk-button-primary">Submit</button>
                         </div>
                     </div>
-                </form>-->
+                </form>
             </div>
         </div>
 
@@ -246,7 +252,6 @@
 {% endblock %}
 
 {% set contactJs %}
-<script type="text/javascript">
 // Contact form ajax submission
 function contact(form){
 	var isValid = validateForm(form, false);
@@ -256,31 +261,38 @@ function contact(form){
 			type: "POST",
 			url: $(form).attr('action'),
 			data: $(form).serialize()
-		}).done(function(data){
-			if(data == true){
+		}).done(function(response){
+			if(response.success){
 				document.forms['contact_form'].reset();
 				
-				UIkit.notify({
-				    message : 'Thank You. Your message has been submitted for review.',
+				UIkit.notification({
+				    message : 'Your message has been sent. Thank You.',
 				    status  : 'success',
 				    timeout : 10000,
 				    pos     : 'top-center'
 				});
 			} else{
-				UIkit.notify({
-				    message : "We're sorry. Your message could not be sent at this time.",
-				    status  : 'danger',
-				    timeout : 10000,
-				    pos     : 'top-center'
-				});
+				for(x in response.error){
+					UIkit.notification({
+					    message : response.error[x],
+					    status  : 'warning',
+					    timeout : 10000,
+					    pos     : 'top-center'
+					});
+				}
 			}
 		}).fail(function(jqXHR, textStatus){
-			console.log(jqXHR);
-			console.log("Request failed: " + textStatus);
+			//console.log(jqXHR);
+			//console.log("Request failed: " + textStatus);
+			UIkit.notification({
+			    message : "We're sorry. Your message could not be sent at this time.",
+			    status  : 'danger',
+			    timeout : 10000,
+			    pos     : 'top-center'
+			});
 		});
 	}
 }
-</script>
 {% endset %}
 
 {% includeJs contactJs %}
