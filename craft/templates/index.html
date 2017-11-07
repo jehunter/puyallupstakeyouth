@@ -47,7 +47,7 @@
 		<div class="uk-width-2-3@s uk-background uk-padding uk-position-relative">
 			<h3 class="uk-text-bold">ANNOUNCEMENTS</h3>
 			<ul id="announcement_switcher" class="uk-switcher">
-			{% set announcements = craft.entries.section('announcements').expiryDate('>= ' ~ now).order('postDate').find() %}
+			{% set announcements = craft.entries.section('announcements').expiryDate('>= ' ~ now).order('postDate desc').find() %}
 				{% for row in announcements|batch(2) %}
 				<li>
 					<div class="uk-child-width-expand@s uk-grid uk-grid-large uk-grid-match" uk-grid>
