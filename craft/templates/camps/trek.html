@@ -10,8 +10,49 @@
 </div>
 <div class="uk-container">
 	<div id="details" class="uk-margin-medium-top uk-margin-medium-bottom">
-	    <h2>Trek, 2018</h2>
-        <p>Trek will take place as the 2018 Youth Conference, and will be held from July 10th through the 13th, 2018. This will be a Hand Cart Trek. More information to follow this Fall.</p>
+		<div class="uk-background-default uk-margin-bottom uk-hidden@s" uk-sticky="animation: uk-animation-slide-top">
+			<button class="uk-button uk-button-default uk-width-1-1" type="button" uk-toggle="target: #trek_mobile_nav">Menu</button>
+		</div>
+	    <div uk-grid>
+		    <div class="uk-width-auto uk-visible@s">
+		        <ul class="uk-tab-left" uk-tab="connect: #trek_sections; animation: uk-animation-fade">
+			        <li class="uk-active"><a href="javascript:void(0)" title="Home">Home</a></li>
+			        <li><a href="javascript:void(0)" title="Registration">Registration</a></li>
+			        <li><a href="javascript:void(0)" title="Clothing & Equipment">Clothing & Equipment</a></li>
+			        <li><a href="javascript:void(0)" title="Leadership">Leadership</a></li>
+			        <li><a href="javascript:void(0)" title="Medical">Medical</a></li>
+			        <li><a href="javascript:void(0)" title="Preparation">Preparation</a></li>
+			        <li><a href="javascript:void(0)" title="Other Resources">Other Resources</a></li>
+		        </ul>
+		    </div>
+		    <div class="uk-width-expand">
+		        <ul id="trek_sections" class="uk-switcher">
+			    {% for entry in craft.entries.section('trek') %}
+			        <li>{{ entry.trekMain }}</li>
+			        <li>{{ entry.trekRegistration }}</li>
+			        <li>{{ entry.trekClothingEquipment }}</li>
+			        <li>{{ entry.trekLeadership }}</li>
+			        <li>{{ entry.trekMedical }}</li>
+			        <li>{{ entry.trekPreparation }}</li>
+			        <li>{{ entry.trekOtherResources }}</li>
+			    {% endfor %}
+		        </ul>
+		    </div>
+		</div>
+    </div>
+</div>
+
+<div id="trek_mobile_nav" uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav uk-nav-default" uk-switcher="connect: #trek_sections; animation: uk-animation-fade">
+            <li class="uk-active"><a href="#trek_mobile_nav" title="Home" uk-toggle>Home</a></li>
+	        <li><a href="#trek_mobile_nav" title="Registration" uk-toggle>Registration</a></li>
+	        <li><a href="#trek_mobile_nav" title="Clothing & Equipment" uk-toggle>Clothing & Equipment</a></li>
+	        <li><a href="#trek_mobile_nav" title="Leadership" uk-toggle>Leadership</a></li>
+	        <li><a href="#trek_mobile_nav" title="Medical" uk-toggle>Medical</a></li>
+	        <li><a href="#trek_mobile_nav" title="Preparation" uk-toggle>Preparation</a></li>
+	        <li><a href="#trek_mobile_nav" title="Other Resources" uk-toggle>Other Resources</a></li>
+        </ul>
     </div>
 </div>
 {% endblock %}
