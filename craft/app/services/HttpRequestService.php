@@ -1562,15 +1562,31 @@ class HttpRequestService extends \CHttpRequest
 
 				$verifyEmailPath = 'verifyemail';
 
-				if (
-					($specialPath = in_array($this->_path, array($loginPath, $logoutPath, $setPasswordPath, $verifyEmailPath))) ||
-					($triggerMatch = ($firstSegment == craft()->config->get('actionTrigger') && count($this->_segments) > 1)) ||
-					($actionParam = $this->getParam('action')) !== null
-				)
+				$hasTriggerMatch = ($firstSegment == craft()->config->get('actionTrigger') && count($this->_segments) > 1);
+				$hasActionParam = ($actionParam = $this->getParam('action')) !== null;
+				$hasSpecialPath = in_array($this->_path, array($loginPath, $logoutPath, $setPasswordPath, $verifyEmailPath));
+
+				if ($hasTriggerMatch || $hasActionParam || $hasSpecialPath)
 				{
 					$this->_isActionRequest = true;
 
-					if ($specialPath)
+					// Important we check in this specific order:
+					// 1) /actions/some/action
+					// 2) any/uri?action=some/action
+					// 3) special/uri
+
+					if ($hasTriggerMatch)
+					{
+						$this->_actionSegments = array_slice($this->_segments, 1);
+						$this->_isSingleActionRequest = true;
+					}
+					else if ($hasActionParam)
+					{
+						$actionParam = $this->decodePathInfo($actionParam);
+						$this->_actionSegments = array_values(array_filter(explode('/', $actionParam)));
+						$this->_isSingleActionRequest = empty($this->_path);
+					}
+					else
 					{
 						$this->_isSingleActionRequest = true;
 
@@ -1590,17 +1606,6 @@ class HttpRequestService extends \CHttpRequest
 						{
 							$this->_actionSegments = array('users', 'setpassword');
 						}
-					}
-					else if ($triggerMatch)
-					{
-						$this->_actionSegments = array_slice($this->_segments, 1);
-						$this->_isSingleActionRequest = true;
-					}
-					else
-					{
-						$actionParam = $this->decodePathInfo($actionParam);
-						$this->_actionSegments = array_values(array_filter(explode('/', $actionParam)));
-						$this->_isSingleActionRequest = empty($this->_path);
 					}
 				}
 			}
