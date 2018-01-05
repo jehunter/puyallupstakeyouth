@@ -3936,7 +3936,7 @@ var Accordion = function (UIkit) {
         ready: function ready() {
             var active = this.active !== false && this.items[Number(this.active)] && !hasClass(active, this.clsOpen);
             if (active) {
-                this.toggle(active, false);
+                this.toggle(this.active, false);
             }
         },
 
