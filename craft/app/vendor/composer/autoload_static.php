@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3
+class ComposerStaticInit35e2f86f1eebd930ca1679853dc5c569
 {
     public static $prefixLengthsPsr4 = array (
         'l' => 
@@ -22,6 +22,10 @@ class ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3
         'S' => 
         array (
             'Symfony\\Component\\EventDispatcher\\' => 34,
+        ),
+        'L' => 
+        array (
+            'LitEmoji\\' => 9,
         ),
     );
 
@@ -41,6 +45,10 @@ class ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'LitEmoji\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/elvanto/litemoji/src',
         ),
     );
 
@@ -399,6 +407,7 @@ class ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3
         'Imagine\\Imagick\\Imagick' => __DIR__ . '/..' . '/pixelandtonic/imagine/lib/Imagine/Imagick/Imagick.php',
         'Imagine\\Imagick\\Imagine' => __DIR__ . '/..' . '/pixelandtonic/imagine/lib/Imagine/Imagick/Imagine.php',
         'Imagine\\Imagick\\Layers' => __DIR__ . '/..' . '/pixelandtonic/imagine/lib/Imagine/Imagick/Layers.php',
+        'LitEmoji\\LitEmoji' => __DIR__ . '/..' . '/elvanto/litemoji/src/LitEmoji.php',
         'PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
         'PHPMailerOAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauth.php',
         'PHPMailerOAuthGoogle' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
@@ -873,10 +882,10 @@ class ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitfbbce2f3e7d15a9e7ea2504083bb4aa3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit35e2f86f1eebd930ca1679853dc5c569::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit35e2f86f1eebd930ca1679853dc5c569::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit35e2f86f1eebd930ca1679853dc5c569::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit35e2f86f1eebd930ca1679853dc5c569::$classMap;
 
         }, null, ClassLoader::class);
     }
