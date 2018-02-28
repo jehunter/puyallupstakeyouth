@@ -35,7 +35,7 @@ function relevantEvents(){
 				var eventList = $("<ul />");
 					eventList.addClass('uk-list').appendTo($('#user_menu #relevant_events'));
 				for(var i in relevantEventData.data){
-					eventList.append('<li class="uk-animation-fade"><a href="/events/' + relevantEventData.data[i].slug + '" title="' + relevantEventData.data[i].event_title + '">' + relevantEventData.data[i].event_title + '</a></li>');	
+					eventList.append('<li class="uk-animation-fade"><a href="/events-calendar/' + relevantEventData.data[i].slug + '" title="' + relevantEventData.data[i].event_title + '">' + relevantEventData.data[i].event_title + '</a></li>');	
 				}
 			} else {
 				$('#user_menu #relevant_events').append('<p class="uk-animation-fade">No relevant events found.</p>');

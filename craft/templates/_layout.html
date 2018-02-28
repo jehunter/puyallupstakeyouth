@@ -41,7 +41,7 @@
 			                    </ul>
 			                </div>
 				        </li>
-			            <li {% if craft.request.segment(1) == 'events' %}class="uk-active"{% endif %}><a href="/events" class="uk-button-text">Calendar</a></li>
+			            <li {% if craft.request.segment(1) == 'events-calendar' %}class="uk-active"{% endif %}><a href="/events-calendar" class="uk-button-text">Calendar</a></li>
 			            <li {% if craft.request.segment(1) == 'dances' %}class="uk-active"{% endif %}><a href="/dances" class="uk-button-text">Dances</a></li>
 			            <li {% if craft.request.segment(1) == 'contact' %}class="uk-active"{% endif %}><a href="/contact" class="uk-button-text">Contact</a></li>
 			        </ul>
@@ -230,7 +230,7 @@
 							<li{% if craft.request.segment(2) == 'trek' %} class="uk-active"{% endif %}><a href="/camps/trek">Trek</a></li>
 		            	</ul>
 					</li>
-					<li{% if craft.request.segment(1) == 'events' %} class="uk-active"{% endif %}><a href="/events">Calendar</a></li>
+					<li{% if craft.request.segment(1) == 'events-calendar' %} class="uk-active"{% endif %}><a href="/events-calendar">Calendar</a></li>
 					<li{% if craft.request.segment(1) == 'dances' %} class="uk-active"{% endif %}><a href="/dances">Dances</a></li>
 					<li{% if craft.request.segment(1) == 'contact' %} class="uk-active"{% endif %}><a href="/contact">Contact</a></li>
 		        </ul>

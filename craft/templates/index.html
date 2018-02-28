@@ -13,7 +13,7 @@
 			<ul class="uk-switcher uk-margin">
 			{% for event in entry.homeQuickRegister.status(null).limit(3) %}
 			    <li>
-			        <p>Click the button below to register for {{ event.title }}. Visit the <a href="/events/{{ event.slug }}" title="{{ event.eventShortTitle }} Event Page">event page</a> for more details.</p>
+			        <p>Click the button below to register for {{ event.title }}. Visit the <a href="/events-calendar/{{ event.slug }}" title="{{ event.eventShortTitle }} Event Page">event page</a> for more details.</p>
 			        <div class="uk-text-center">
 				    {% if  event.registrationUrl != '' %}
 				        <a href="{{ event.registrationUrl }}" title="Register for {{ event.eventShortTitle }}" class="uk-button uk-button-primary" target="_blank">Register</a>
@@ -90,7 +90,7 @@
 	    	{% for entry in craft.entries.section('events').status('live, pending').order('postDate').limit(3) %}
 	    	<div>
 	        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
-		        	<a href="/events/{{ entry.slug }}" title="{{ entry.title }}" class="uk-link-reset"><h3 class="uk-card-title uk-margin-remove-bottom"><span class="uk-margin-small-right" uk-icon="icon: calendar; ratio: 2" style="color: #666;"></span>{{ entry.title }}</h3></a>
+		        	<a href="/events-calendar/{{ entry.slug }}" title="{{ entry.title }}" class="uk-link-reset"><h3 class="uk-card-title uk-margin-remove-bottom"><span class="uk-margin-small-right" uk-icon="icon: calendar; ratio: 2" style="color: #666;"></span>{{ entry.title }}</h3></a>
 					<p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ entry.postDate|date('Y-m-d') }}">{{ entry.postDate|date("F d, Y") }}</time>
 					{% if entry.eventDescription != '' %}
 					<p>{{ entry.eventDescription }}</p>
