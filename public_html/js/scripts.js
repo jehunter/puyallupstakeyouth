@@ -53,12 +53,12 @@ function youthMemberCheck(){
 		$("#user_nav").html('<span class="uk-icon uk-margin-small-right" uk-icon="icon: user"></span><div class="uk-inline"><a class="uk-link-muted" href="#user_menu" uk-toggle>' + Cookies.getJSON('youthMember').first_name + ' ' + Cookies.getJSON('youthMember').last_name + '</a>');
 		
 		$("#mobile_menu").find('.member-link').first().children('a').first().html('<span class="uk-icon uk-margin-small-right" uk-icon="icon: refresh"></span>Update Info').click(function(){
-			setTimeout(function(){$('#user_menu ul.uk-nav').children('li.member-link').first().children('a').first().click();}, 500);
+			setTimeout(function(){UIkit.modal('#member_modal').show()}, 501);
 			UIkit.offcanvas('#mobile_menu').hide();
 		});
 		
 		$("#mobile_menu").find('.member-link').last().children('a').first().html('<span class="uk-icon uk-margin-small-right" uk-icon="icon: sign-out"></span>Sign Out').click(function(){
-			setTimeout(function(){$('#user_menu ul.uk-nav').children('li.member-link').last().children('a').first().click();}, 500);
+			setTimeout(function(){signOut();}, 501);
 			UIkit.offcanvas('#mobile_menu').hide();
 		});
 				
@@ -81,12 +81,12 @@ function youthMemberCheck(){
 		$("#user_nav").html('<a href="#join_modal" class="uk-link-muted uk-margin-right" uk-toggle><span class="uk-icon uk-margin-small-right" uk-icon="icon: user"></span>Join</a><a href="javascript:void(0)" class="uk-link-muted" onclick="signIn();"><span class="uk-icon uk-margin-small-right" uk-icon="icon: sign-in"></span>Sign In</a>');
 		
 		$("#mobile_menu").find('.member-link').first().children('a').first().html('<span class="uk-icon uk-margin-small-right" uk-icon="icon: user"></span>Join').click(function(){
-			setTimeout(function(){$('#user_nav').find('a').first().click();}, 500);
+			setTimeout(function(){UIkit.modal('#join_modal').show()}, 501);
 			UIkit.offcanvas('#mobile_menu').hide();
 		});
 		
 		$("#mobile_menu").find('.member-link').last().children('a').first().html('<span class="uk-icon uk-margin-small-right" uk-icon="icon: sign-in"></span>Sign In').click(function(){
-			setTimeout(function(){$('#user_nav').find('a').last().click();}, 500);
+			setTimeout(function(){signIn();}, 501);
 			UIkit.offcanvas('#mobile_menu').hide();
 		});
 	}
