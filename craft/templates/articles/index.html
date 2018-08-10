@@ -1,0 +1,21 @@
+{% extends "_layout" %}
+{% set title = "Articles" %}
+
+{% block content %}
+<div class="uk-section uk-padding">
+	<div class="uk-container">
+		<h1><strong>Articles</strong></h1>
+		<div class="uk-child-width-1-1@s uk-child-width-1-2@m uk-grid-match uk-grid" uk-grid>
+			{% for entry in craft.entries.section('articles') %}
+			<div class="uk-card uk-card-default uk-card-body">
+			    <h3 class="uk-card-title">{{ entry.title }}</h3>
+			    <p>{{ entry.description }}</p>
+			    <div class="uk-width-1-1 uk-text-center">
+			    	<a class="uk-button" href="/articles/{{ entry.slug }}">Read More</a>
+			    </div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

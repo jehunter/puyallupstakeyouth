@@ -1,0 +1,15 @@
+{% extends "_layout" %}
+{% set title = "Articles" %}
+
+{% block content %}
+<div class="uk-section uk-padding">
+	<div class="uk-container">
+		<article class="uk-article">
+			<h1 class="uk-article-title"><a class="uk-link-reset" href="">{{ entry.title }}</a></h1>
+		    <p class="uk-article-meta">Written on {{ entry.postDate|date("F d, Y") }}.</p>
+		    <p class="uk-text-lead">{{ entry.description }}</p>
+		    {{ entry.body }}
+		</article>
+	</div>
+</div>
+{% endblock %}

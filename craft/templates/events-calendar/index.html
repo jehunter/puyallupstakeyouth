@@ -12,7 +12,7 @@
                 <h3 class="uk-accordion-title"></span>January</h3>
                 <div class="uk-accordion-content">
 	                <hr>
-	                <div class="uk-accordion-content uk-child-width-1-3@m uk-grid  uk-grid-match" uk-grid>
+	                <div class="uk-accordion-content uk-child-width-1-3@m uk-grid uk-grid-match" uk-grid>
       				{% for entry in craft.entries.section('events').after(thisYear ~ '-01').before(thisYear ~ '-02').status('null').order('postDate') %}
       					<div>
 				        	<div class="uk-card uk-card-small uk-card-default uk-card-body">
