@@ -3,15 +3,21 @@
 
 {% block content %}
 <div class="uk-cover-container" style="height: 79vh;">
-    <img src="/images/page/camp_helaman.jpg" class="uk-animation-fade uk-cover" alt="Youth Theme Banner" uk-cover>
+	{% for entry in craft.entries.section('campHelaman') %}
+	{% for image in entry.campPageImage %}
+    <img src="{{ image.getUrl() }}" class="uk-animation-fade uk-cover" alt="{{ image.title }}" uk-cover>
+    {% endfor %}
+    {% endfor %}
     <div class="uk-position-small uk-position-bottom-center">
 		<a href="#details" class="uk-icon-button" uk-icon="icon: chevron-down; ratio: 2" uk-scroll></a>
 	</div>
 </div>
-<div id="details" class="uk-section">
-	<div class="uk-container">
-		<h1>Camp Helaman</h1>
-		<p>Click the button to register for Camp Helaman at the Camp Helaman website: <a href="http://www.camphelamanfederalway.com/registration/" title="Register for Camp Helaman" class="uk-button uk-button-primary" target="_blank">Register</a>
-	</div>
+<div class="uk-container">
+	<div id="details" class="uk-margin-medium-top uk-margin-medium-bottom">
+		{% for entry in craft.entries.section('campHelaman') %}
+	    <h2>{{ entry.campPageTitle }}</h2>
+        {{ entry.campPageContent }}
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

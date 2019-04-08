@@ -38,7 +38,7 @@
 			                        <li class="uk-nav-divider"></li>
 			                        <li {% if craft.request.segment(2) == 'camp-helaman' %}class="uk-active"{% endif %}><a href="/camps/camp-helaman">Camp Helaman</a></li>
 			                        <li class="uk-nav-divider"></li>
-			                        <li {% if craft.request.segment(2) == 'trek' %}class="uk-active"{% endif %}><a href="/camps/trek">Trek</a></li>
+			                      <!-- <li {% if craft.request.segment(2) == 'trek' %}class="uk-active"{% endif %}><a href="/camps/trek">Trek</a></li>-->
 			                    </ul>
 			                </div>
 				        </li>
@@ -86,13 +86,15 @@
 					        <li><a href="/contact">Contact</a></li>
 					    </ul>
 				    </div>
-				    <div class="uk-width-medium">
+				    <!-- 
+                    <div class="uk-width-medium">
 					    <ul class="uk-nav uk-nav-default">
 					        <li class="uk-nav-header">Resources</li>
 					        <li class="uk-nav-divider"></li>
 					        <li><a href="/articles">Articles</a></li>
 					    </ul>
-				    </div>
+				    </div> 
+                    -->
 				</div>
 			</div>
 		</footer>
@@ -219,7 +221,7 @@
 		    </div>
 		</div>
 		
-		<div id="mobile_menu" uk-offcanvas="overlay: true; mode: push; flip: true;">
+		<div id="mobile_menu" uk-offcanvas="flip: true; overlay: true">
 	    	<div class="uk-offcanvas-bar">
 		    	<button class="uk-offcanvas-close" type="button" uk-close></button>
 		    	<ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
@@ -234,7 +236,7 @@
 		            	<ul class="uk-nav-sub">
 							<li{% if craft.request.segment(2) == 'yw-camp' %} class="uk-active"{% endif %}><a href="/camps/yw-camp">YW Camp</a></li>
 							<li{% if craft.request.segment(2) == 'camp-helaman' %} class="uk-active"{% endif %}><a href="/camps/camp-helaman">Camp Helaman</a></li>
-							<li{% if craft.request.segment(2) == 'trek' %} class="uk-active"{% endif %}><a href="/camps/trek">Trek</a></li>
+							<!--<li{% if craft.request.segment(2) == 'trek' %} class="uk-active"{% endif %}><a href="/camps/trek">Trek</a></li>-->
 		            	</ul>
 					</li>
 					<li{% if craft.request.segment(1) == 'events-calendar' %} class="uk-active"{% endif %}><a href="/events-calendar">Calendar</a></li>
