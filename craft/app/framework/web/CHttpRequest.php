@@ -539,9 +539,7 @@ class CHttpRequest extends CApplicationComponent
 	{
 		if($this->_requestUri===null)
 		{
-			if(isset($_SERVER['HTTP_X_REWRITE_URL'])) // IIS
-				$this->_requestUri=$_SERVER['HTTP_X_REWRITE_URL'];
-			elseif(isset($_SERVER['REQUEST_URI']))
+			if(isset($_SERVER['REQUEST_URI']))
 			{
 				$this->_requestUri=$_SERVER['REQUEST_URI'];
 				if(!empty($_SERVER['HTTP_HOST']))
@@ -799,7 +797,7 @@ class CHttpRequest extends CApplicationComponent
 
 	private $_port;
 
- 	/**
+	/**
 	 * Returns the port to use for insecure requests.
 	 * Defaults to 80, or the port specified by the server if the current
 	 * request is insecure.
@@ -1028,6 +1026,21 @@ class CHttpRequest extends CApplicationComponent
 	}
 
 	/**
+	 * String compare function used by usort.
+	 * Included to circumvent the use of closures (not supported by PHP 5.2) and create_function (deprecated since PHP 7.2.0)
+	 * @param array $a
+	 * @param array $b
+	 * @return int -1 (a>b), 0 (a==b), 1 (a<b)
+	 */
+	private function stringCompare($a, $b)
+	{
+		if ($a[0] == $b[0]) {
+			return 0;
+		}
+		return ($a[0] < $b[0]) ? 1 : -1;
+	}
+
+	/**
 	 * Returns an array of user accepted languages in order of preference.
 	 * The returned language IDs will NOT be canonicalized using {@link CLocale::getCanonicalID}.
 	 * @return array the user accepted languages in the order of preference.
@@ -1051,7 +1064,7 @@ class CHttpRequest extends CApplicationComponent
 						$languages[]=array((float)$q,$matches[1][$i]);
 				}
 
-				usort($languages,create_function('$a,$b','if($a[0]==$b[0]) {return 0;} return ($a[0]<$b[0]) ? 1 : -1;'));
+				usort($languages, array($this, 'stringCompare'));
 				foreach($languages as $language)
 					$sortedLanguages[]=$language[1];
 			}
@@ -1436,8 +1449,13 @@ class CCookieCollection extends CMap
 			$sm=Yii::app()->getSecurityManager();
 			foreach($_COOKIE as $name=>$value)
 			{
-				if(is_string($value) && ($value=$sm->validateData($value))!==false)
-					$cookies[$name]=new CHttpCookie($name,@unserialize($value));
+				if(is_string($value) && ($value=$sm->validateData($value))!==false) {
+					if (defined('PHP_VERSION_ID') && PHP_VERSION_ID >= 70000) {
+						$cookies[$name] = new CHttpCookie($name, @unserialize($value, array('allowed_classes' => false)));
+					} else {
+						$cookies[$name] = new CHttpCookie($name, @unserialize($value));
+					}
+				}
 			}
 		}
 		else

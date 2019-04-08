@@ -31,6 +31,7 @@ defined('YII_PATH') or define('YII_PATH',dirname(__FILE__));
 defined('YII_ZII_PATH') or define('YII_ZII_PATH',YII_PATH.DIRECTORY_SEPARATOR.'zii');
 class YiiBase
 {
+	public static $autoloaderFilters=array();
 	public static $classMap=array();
 	public static $enableIncludePath=true;
 	private static $_aliases=array('system'=>YII_PATH,'zii'=>YII_ZII_PATH); // alias => path
@@ -40,7 +41,7 @@ class YiiBase
 	private static $_logger;
 	public static function getVersion()
 	{
-		return '1.1.19';
+		return '1.1.21';
 	}
 	public static function createWebApplication($config=null)
 	{
@@ -214,6 +215,29 @@ class YiiBase
 	}
 	public static function autoload($className,$classMapOnly=false)
 	{
+		foreach (self::$autoloaderFilters as $filter)
+		{
+			if (is_array($filter)
+				&& isset($filter[0]) && isset($filter[1])
+				&& is_string($filter[0]) && is_string($filter[1])
+				&& true === call_user_func(array($filter[0], $filter[1]), $className)
+			)
+			{
+				return true;
+			}
+			elseif (is_string($filter)
+				&& true === call_user_func($filter, $className)
+			)
+			{
+				return true;
+			}
+			elseif (is_callable($filter)
+				&& true === $filter($className)
+			)
+			{
+				return true;
+			}
+		}
 		// use include so that the error PHP file may appear
 		if(isset(self::$classMap[$className]))
 			include(self::$classMap[$className]);
@@ -2529,9 +2553,7 @@ class CHttpRequest extends CApplicationComponent
 	{
 		if($this->_requestUri===null)
 		{
-			if(isset($_SERVER['HTTP_X_REWRITE_URL'])) // IIS
-				$this->_requestUri=$_SERVER['HTTP_X_REWRITE_URL'];
-			elseif(isset($_SERVER['REQUEST_URI']))
+			if(isset($_SERVER['REQUEST_URI']))
 			{
 				$this->_requestUri=$_SERVER['REQUEST_URI'];
 				if(!empty($_SERVER['HTTP_HOST']))
@@ -2783,6 +2805,13 @@ class CHttpRequest extends CApplicationComponent
 		$preferredAcceptTypes=$this->getPreferredAcceptTypes();
 		return empty($preferredAcceptTypes) ? false : $preferredAcceptTypes[0];
 	}
+	private function stringCompare($a, $b)
+	{
+		if ($a[0] == $b[0]) {
+			return 0;
+		}
+		return ($a[0] < $b[0]) ? 1 : -1;
+	}
 	public function getPreferredLanguages()
 	{
 		if($this->_preferredLanguages===null)
@@ -2799,7 +2828,7 @@ class CHttpRequest extends CApplicationComponent
 					if($q)
 						$languages[]=array((float)$q,$matches[1][$i]);
 				}
-				usort($languages,create_function('$a,$b','if($a[0]==$b[0]) {return 0;} return ($a[0]<$b[0]) ? 1 : -1;'));
+				usort($languages, array($this, 'stringCompare'));
 				foreach($languages as $language)
 					$sortedLanguages[]=$language[1];
 			}
@@ -3021,8 +3050,14 @@ class CCookieCollection extends CMap
 			$sm=Yii::app()->getSecurityManager();
 			foreach($_COOKIE as $name=>$value)
 			{
-				if(is_string($value) && ($value=$sm->validateData($value))!==false)
-					$cookies[$name]=new CHttpCookie($name,@unserialize($value));
+				if(is_string($value) && ($value=$sm->validateData($value))!==false) {
+					if (defined('PHP_VERSION_ID') && PHP_VERSION_ID >= 70000) {
+						$cookies[$name]=new CHttpCookie($name,@unserialize($value,array('allowed_classes' => false)));
+					} else {
+						$cookies[$name]=new CHttpCookie($name,@unserialize($value));
+					}
+				}
+
 			}
 		}
 		else
@@ -3962,7 +3997,7 @@ class CController extends CBaseController
 	}
 	public function renderDynamic($callback)
 	{
-		$n=count($this->_dynamicOutput);
+		$n=($this->_dynamicOutput === null ? 0 : count($this->_dynamicOutput));
 		echo "<###dynamic-$n###>";
 		$params=func_get_args();
 		array_shift($params);
@@ -4098,7 +4133,10 @@ class CController extends CBaseController
 				if(extension_loaded('zlib'))
 					$data=@gzuncompress($data);
 				if(($data=Yii::app()->getSecurityManager()->validateData($data))!==false)
-					return unserialize($data);
+					if(defined('PHP_VERSION_ID') && PHP_VERSION_ID >= 70000)
+						return @unserialize($data,array('allowed_classes' => false));
+					else
+						return @unserialize($data);
 			}
 		}
 		return array();
@@ -4568,6 +4606,7 @@ class CWebUser extends CApplicationComponent implements IWebUser
 class CHttpSession extends CApplicationComponent implements IteratorAggregate,ArrayAccess,Countable
 {
 	public $autoStart=true;
+	private $_frozenData;
 	public function init()
 	{
 		parent::init();
@@ -4657,10 +4696,12 @@ class CHttpSession extends CApplicationComponent implements IteratorAggregate,Ar
 		$data=session_get_cookie_params();
 		extract($data);
 		extract($value);
+		$this->freeze();
 		if(isset($httponly))
 			session_set_cookie_params($lifetime,$path,$domain,$secure,$httponly);
 		else
 			session_set_cookie_params($lifetime,$path,$domain,$secure);
+		$this->unfreeze();
 	}
 	public function getCookieMode()
 	{
@@ -4675,18 +4716,24 @@ class CHttpSession extends CApplicationComponent implements IteratorAggregate,Ar
 	{
 		if($value==='none')
 		{
+			$this->freeze();
 			ini_set('session.use_cookies','0');
 			ini_set('session.use_only_cookies','0');
+			$this->unfreeze();
 		}
 		elseif($value==='allow')
 		{
+			$this->freeze();
 			ini_set('session.use_cookies','1');
 			ini_set('session.use_only_cookies','0');
+			$this->unfreeze();
 		}
 		elseif($value==='only')
 		{
+			$this->freeze();
 			ini_set('session.use_cookies','1');
 			ini_set('session.use_only_cookies','1');
+			$this->unfreeze();
 		}
 		else
 			throw new CException(Yii::t('yii','CHttpSession.cookieMode can only be "none", "allow" or "only".'));
@@ -4699,9 +4746,11 @@ class CHttpSession extends CApplicationComponent implements IteratorAggregate,Ar
 	{
 		if($value>=0 && $value<=100)
 		{
+			$this->freeze();
 			// percent * 21474837 / 2147483647 ≈ percent * 0.01
 			ini_set('session.gc_probability',floor($value*21474836.47));
 			ini_set('session.gc_divisor',2147483647);
+			$this->unfreeze();
 		}
 		else
 			throw new CException(Yii::t('yii','CHttpSession.gcProbability "{value}" is invalid. It must be a float between 0 and 100.',
@@ -4713,7 +4762,9 @@ class CHttpSession extends CApplicationComponent implements IteratorAggregate,Ar
 	}
 	public function setUseTransparentSessionID($value)
 	{
+		$this->freeze();
 		ini_set('session.use_trans_sid',$value?'1':'0');
+		$this->unfreeze();
 	}
 	public function getTimeout()
 	{
@@ -4721,7 +4772,9 @@ class CHttpSession extends CApplicationComponent implements IteratorAggregate,Ar
 	}
 	public function setTimeout($value)
 	{
+		$this->freeze();
 		ini_set('session.gc_maxlifetime',$value);
+		$this->unfreeze();
 	}
 	public function openSession($savePath,$sessionName)
 	{
@@ -4815,6 +4868,29 @@ class CHttpSession extends CApplicationComponent implements IteratorAggregate,Ar
 	public function offsetUnset($offset)
 	{
 		unset($_SESSION[$offset]);
+	}
+	protected function freeze()
+	{
+		if (isset($_SESSION) && $this->getIsStarted())
+		{
+			$this->_frozenData = $_SESSION;
+			$this->close();
+		}
+	}
+	protected function unfreeze()
+	{
+		if ($this->_frozenData !== null)
+		{
+			@session_start();
+			$_SESSION = $this->_frozenData;
+			$this->_frozenData = null;
+		}
+	}
+	public function setCacheLimiter($cacheLimiter)
+	{
+		$this->freeze();
+		session_cache_limiter($cacheLimiter);
+		$this->unfreeze();
 	}
 }
 class CHtml
@@ -5791,8 +5867,20 @@ EOD;
 		if(is_scalar($attribute) || $attribute===null)
 			foreach(explode('.',$attribute) as $name)
 			{
-				if(is_object($model) && isset($model->$name))
-					$model=$model->$name;
+				if(is_object($model))
+				{
+					if ((version_compare(PHP_VERSION, '7.2.0', '>=')
+						&& is_numeric($name))
+						|| !isset($model->$name)
+					)
+					{
+						return $defaultValue;
+					}
+					else
+					{
+						$model=$model->$name;
+					}
+				}
 				elseif(is_array($model) && isset($model[$name]))
 					$model=$model[$name];
 				else

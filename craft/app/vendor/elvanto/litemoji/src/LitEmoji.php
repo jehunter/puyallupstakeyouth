@@ -7,17 +7,20 @@ class LitEmoji
     const MB_REGEX = '/(
     		     \x23\xE2\x83\xA3               # Digits
     		     [\x30-\x39]\xE2\x83\xA3
+    		   | \xE2[\x9C-\x9E][\x80-\xBF]     # Dingbats
     		   | \xF0\x9F[\x85-\x88][\xA6-\xBF] # Enclosed characters
     		   | \xF0\x9F[\x8C-\x97][\x80-\xBF] # Misc
     		   | \xF0\x9F\x98[\x80-\xBF]        # Smilies
     		   | \xF0\x9F\x99[\x80-\x8F]
     		   | \xF0\x9F\x9A[\x80-\xBF]        # Transport and map symbols
+    		   | \xF0\x9F[\xA4-\xA7][\x80-\xBF] # Supplementary symbols and pictographs
     		)/x';
 
     private static $shortcodes = [];
     private static $shortcodeCodepoints = [];
     private static $shortcodeEntities = [];
     private static $entityCodepoints = [];
+    private static $excludedShortcodes = [];
 
     /**
      * Converts all unicode emoji and HTML entities to plaintext shortcodes.
@@ -147,6 +150,8 @@ class LitEmoji
     }
 
     /**
+     * Converts plain text shortcodes to HTML entities.
+     *
      * @param string $content
      * @return string
      */
@@ -155,13 +160,49 @@ class LitEmoji
         return str_replace(array_keys($replacements), $replacements, $content);
     }
 
+    /**
+     * Sets a configuration property.
+     *
+     * @param string $property
+     * @param mixed $value
+     */
+    public static function config($property, $value)
+    {
+        switch ($property) {
+            case 'excludeShortcodes':
+                self::$excludedShortcodes = [];
+
+                if (!is_array($value)) {
+                    $value = [$value];
+                }
+
+                foreach ($value as $code) {
+                    if (is_string($code)) {
+                        self::$excludedShortcodes[] = $code;
+                    }
+                }
+
+                // Invalidate shortcode cache
+                self::$shortcodes = [];
+                break;
+        }
+    }
+
     private static function getShortcodes()
     {
         if (!empty(self::$shortcodes)) {
             return self::$shortcodes;
         }
 
-        self::$shortcodes = require(__DIR__ . '/shortcodes-array.php');
+        $data = require(__DIR__ . '/shortcodes-array.php');
+
+        // Skip excluded shortcodes
+        foreach ($data as $code => $codepoint) {
+            if (!in_array($code, self::$excludedShortcodes)) {
+                self::$shortcodes[$code] = $codepoint;
+            }
+        }
+
         return self::$shortcodes;
     }
 
