@@ -21,18 +21,8 @@
 }
 
 .uk-offcanvas-bar {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    box-sizing: border-box;
-    padding: 20px 20px;
     color: #666;
     background: #fff;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
 }
 
 .uk-offcanvas-bar .uk-close {
@@ -51,15 +41,12 @@
     color: #999;
 }
 
-.uk-offcanvas-bar .uk-nav-default > li.uk-active > a {
-    color: #222;
-}
-
 .uk-offcanvas-bar .uk-nav-default > li > a:hover, .uk-offcanvas-bar .uk-nav-default > li > a:focus, .uk-offcanvas-bar .uk-nav-default > li > a:active {
     color: #666;
 }
 
-.uk-offcanvas-bar .uk-nav-default > li.uk-active > a {
+.uk-offcanvas-bar .uk-nav-default > li.uk-active > a,
+.uk-offcanvas-bar .uk-nav-default .uk-nav-sub li.uk-active>a {
     color: #222;
 }
 
@@ -98,6 +85,7 @@
     border-color: #147EA6;
 }
 
+
 /*************
  ** REDLINE **
  *************/
@@ -120,14 +108,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .young-women-bg {
 	background-color: #DFAECC;
-}
-
-.primary-bg {
-	background-color: #FFE100;
-}
-
-article em {
-	color: #666;
 }
 
 
@@ -158,12 +138,16 @@ article em {
 	height: 85vh;
 }
 
+#announcement_switcher .uk-card-badge:first-child+* {
+    margin-top: 40px;
+}
+
 
 /************
  ** FOOTER **
  ************/
  
-#site_footer{
+ #site_footer{
 	 min-height: 300px;
 	 box-sizing: border-box;
-}
+ }
