@@ -4,87 +4,10 @@
 {% block content %}
 <div class="uk-section uk-padding">
 	<div class="uk-container">
-		<h1><strong>STAKE DANCE INFORMATION</strong></h1>
-		<h4><strong>DANCE CARD APP</strong></h4>
-		<p><a href="/images/uploads/stake_dance_card_app_instructions.pdf" target="_blank">View App Instructions</a></p>
-		<h4><strong>DRESS STANDARDS</strong></h4>
-		<p>Appropriate dress is modest, neat, clean, and avoids extremes.</p>
-		<h4><strong>INAPPROPRIATE DRESS</strong></h4>
-		<p>Shorts of any length, PE type clothing, sweat suits, hats of any type, bandanas, and any printed message or picture that is contrary to gospel principles.  Youth will refrain from wearing the following:</p>
-		<h5><u>Young Women</u></h5>
-		<ul>
-			<li>Skirts above the knee (Incl. slits)</li>                                     
-			<li>Sleeveless shirts or blouses, tank tops or any clothing showing a bare midriff</li>      
-			<li>Clothing that is revealing, backless or low-cut</li>             
-			<li>Leggings may be worn, but will be treated as nylons, and can only be worn under knee-length skirts</li>
-			<li>Inappropriate piercings, more than one pair of earrings</li>
-			<li>“Yoga” pants or jeans with holes</li>
-		</ul>
-		<h5><u>Young Men</u></h5>
-		<ul>
-			<li>Tank tops</li>
-			<li>Clothing that is patched, frayed, torn, holes or sagging</li>
-			<li>Earrings are inappropriate for young men, as are other body piercings</li>
-		</ul>
-		<h2 class="uk-heading-line"><span>2019 DANCES</span></h2>
-		<table class="uk-table uk-table-small uk-table-striped">
-		    <thead>
-		        <tr>
-		            <th class="uk-width-small">Date</th>
-		            <th class="uk-table-expand">Location</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-		        <tr>
-		            <td>Jan 19</td>
-		            <td>Graham</td>
-		        </tr>
-		        <tr>
-		            <td>Feb 16</td>
-		            <td>South Hill</td>
-		        </tr>
-		        <tr>
-		            <td>March 16</td>
-		            <td>Puyallup</td>
-		        </tr>
-		        <tr>
-		            <td>April 20</td>
-		            <td>Puyallup</td>
-		        </tr>
-		        <tr>
-		            <td>May 18</td>
-		            <td>South Hill</td>
-		        </tr>
-		        <tr>
-		            <td>June 15</td>
-		            <td>Graham</td>
-		        </tr>
-		        <tr>
-		            <td>July 20</td>
-		            <td>South Hill</td>
-		        </tr>
-		        <tr>
-		            <td>Aug 17</td>
-		            <td>Puyallup</td>
-		        </tr>
-		        <tr>
-		            <td>Sept 21</td>
-		            <td>Graham</td>
-		        </tr>
-		        <tr>
-		            <td>Oct 19</td>
-		            <td>South Hill</td>
-		        </tr>
-		        <tr>
-		            <td>Nov 16</td>
-		            <td>Puyallup</td>
-		        </tr>
-		        <tr>
-		            <td>Dec 31</td>
-		            <td>Graham</td>
-		        </tr>
-		    </tbody>
-		</table>
+		{% for entry in craft.entries.section('dances') %}
+	    <h2>{{ entry.title }}</h2>
+        {{ entry.body }}
+        {% endfor %}
 	</div>
 </div>
 {% endblock %}
